@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="node_modules\angular\angular.min.js"> </script>
+    <script src="node_modules\angular-animate\angular-animate.min.js"></script>
+    <script src="node_modules\angular-touch\angular-touch.min.js"></script>
+    <script src="app\app.js"> </script>
+    <link href="main.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body ng-app="vitrine" ng-controller="ProductsController as vm" >
+    <h1 style="color:white">
+       Vitrine
+    </h1>
+    <aside class="showcase">
+        <div class="containercase" ng-swipe-left="vm.forward()" ng-swipe-right="vm.backward()">
+            <button ng-click="vm.forward()" class="btn-v btnv-icon visible-xs  visible-sm backward">
+                <i class="fa fa-arrow-left"></i>
+            </button>
+            <button ng-click="vm.backward();" class="btn-v btnv-icon to-right visible-xs  visible-sm forward">
+                <i class="fa fa-arrow-right"></i>
+            </button>
+            <div class="card-container  hidden-xs  hidden-sm">
+                
+                <article class="block-1 card">
+                    <header>
+                        <div class="avatar">
+                            <img ng-src="{{'http:'+vm.data.reference.item.imageName}}" />
+                        </div>
+                        <hgroup>
+                            <h1>{{vm.data.reference.item.name}}</h1>
+                        </hgroup>
+
+                    </header>
+                    <content>
+                        <hgroup>
+                            <h3>
+                                <small> por: </small>
+                                {{vm.data.reference.item.price}}
+                            </h3>
+                            <h6 class="double-line"><small> de: </small> {{vm.data.reference.item.oldPrice}}</h6>
+                        </hgroup>
+                    </content>
+                    <footer>
+                        <button ng-click="vm.forward()" class="btn-v btnv-icon">
+                            <i class="fa fa-arrow-left"></i>
+                        </button>
+                    </footer>
+                </article>
+                <article class="block-2 card"></article>
+                <article class="block-3 card"></article>
+            </div>
+            
+            <div class="card-container hidden-xs  hidden-sm"  ng-repeat="product in  vm.data.recommendation" ng-dblclick="vm.forward()" ng-class="{'hidden-left': $index < vm.firstItem, 'hidden-right' :   $index > (vm.firstItem + vm.maxLenght) }">
+               
+                <article class="card " >
+                    <header>
+                        <div class="avatar">
+                            <img ng-src="{{'http:'+product.imageName}}" />
+                        </div>
+                        <hgroup>
+                           
+                            <h1>{{product.name}}</h1>
+                        </hgroup>
+                    </header>
+                    <content>
+                        <hgroup>
+                            <h3>
+                                <small> por: </small>
+                                {{product.price}}
+                            </h3>
+                            <h6 class="double-line"><small> de: </small> {{product.oldPrice}}</h6>
+                        </hgroup>
+                    </content>
+                    <footer>
+                        <a class="to-right btn-v btnv-icon" ng-href="{{'http:' +product.detailUrl}}" target="_blank">
+                            <i class="fa fa-info"></i>
+                        </a>
+                    </footer>
+                </article>
+            </div>
+            <div class="card-container">
+                <article class="block-1 card ">
+                    <header>
+                        <div class="avatar">
+                            <img ng-src="{{'http:'+vm.lastproduct.imageName}}" />
+                        </div>
+                        <hgroup>
+                            <h1>{{vm.lastproduct.name}}</h1>
+                        </hgroup>
+                    </header>
+                    <content>
+                        <hgroup>
+                            <h3>
+                                <small> por: </small>
+                                {{vm.lastproduct .price}}
+                            </h3>
+                            <h6 class="double-line"><small> de: </small> {{vm.lastproduct.oldPrice}}</h6>
+                        </hgroup>
+                    </content>
+                    <footer>
+                        <button ng-click="vm.backward();" class="btn-v btnv-icon to-right hidden-xs  hidden-sm">
+                            <i class="fa fa-arrow-right"></i>
+                        </button>
+                        <a class="to-right btn-v btnv-icon visible-sm visible-xs"  ng-href="{{'http:' +vm.lastproduct.detailUrl}}" target="_blank">
+                            <i class="fa fa-info"></i>
+                        </a>
+                    </footer>
+                </article>
+                <article class="block-2 card"></article>
+                <article class="block-3 card"></article>
+            </div>
+        </div>
+    </aside>
+</body>
+</html>
